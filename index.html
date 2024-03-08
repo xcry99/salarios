@@ -1,0 +1,109 @@
+<!-- <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Planilla de Pago de Salarios</title>
+    <style>
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h2>Consulta de Planilla de Pago de Salarios</h2>
+    <input type="text" id="searchInput" placeholder="Buscar por nombre...">
+    <ul id="searchResults"></ul>
+
+    <script>
+        // Función para cargar los datos desde un archivo CSV
+        function loadDataFromCSV(url, callback) {
+            fetch(url)
+                .then(response => response.text())
+                .then(text => {
+                    const lines = text.trim().split('\n');
+                    const headers = lines[0].split(';').map(header => header.trim());
+                    const data = lines.slice(1).map(line => {
+                        const values = line.split(';');
+                        const entry = {};
+                        headers.forEach((header, index) => {
+                            entry[header] = values[index].trim();
+                        });
+                        return entry;
+                    });
+                    callback(data);
+                })
+                .catch(error => console.error('Error al cargar los datos:', error));
+        }
+
+        const searchInput = document.querySelector("#searchInput");
+        const searchResults = document.querySelector("#searchResults");
+
+        // Función para filtrar los datos por nombre y mostrar los resultados
+        function filterData(data, searchTerm) {
+            const filteredData = data.filter(item =>
+                item.Nombre.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            renderResults(filteredData);
+        }
+
+        // Función para renderizar los resultados de la búsqueda
+        function renderResults(results) {
+            searchResults.innerHTML = "";
+            results.forEach(result => {
+                const li = document.createElement("li");
+                li.textContent = result.Nombre;
+                searchResults.appendChild(li);
+            });
+        }
+
+        // Cargar los datos desde el archivo CSV
+        loadDataFromCSV('https://cdn.jsdelivr.net/gh/xcry99/salarios@main/data.csv', data => {
+            // Event listener para la entrada de búsqueda
+            searchInput.addEventListener("input", () => {
+                filterData(data, searchInput.value);
+            });
+        });
+    </script>
+    
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta de Salarios</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Consulta de Salarios</h1>
+    <input type="text" id="searchInput" placeholder="Buscar por nombre...">
+    <ul id="results"></ul>
+    <div id="employeeDetails"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
